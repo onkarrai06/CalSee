@@ -11,7 +11,7 @@ def yaml_create():
     data = {
         "path": "../dataset", 
         "train": "images/train", 
-        "val": "images/valdiation",
+        "val": "images/validation",
         "test": "images/test",
         "names": classes
     }
