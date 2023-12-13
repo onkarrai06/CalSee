@@ -11,15 +11,13 @@ def model(data_file, epochs, batch_size, verbose):
     model.train(data=data_file, epochs=epochs, batch=batch_size, verbose=verbose, project="F:\project", name="yolov8n", workers=2)
     metrics = model.val()
     
-    # path = model.export(format="onnx")
+    path = model.export(format="onnx")
     
     return model
 
 def run():
     torch.multiprocessing.freeze_support()
     print('loop')
-
-
 
 
 
