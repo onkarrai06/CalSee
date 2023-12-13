@@ -5,13 +5,13 @@ def yaml_create():
     with open("classes.txt", "r") as file:
         i = 0
         for line in file:
-            i += 1
             classes[i] = line.strip()  # [classid, name]
+            i += 1
 
     data = {
         "path": "../dataset", 
         "train": "images/train", 
-        "val": "images/valdiation",
+        "val": "images/validation",
         "test": "images/test",
         "names": classes
     }
