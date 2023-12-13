@@ -5,8 +5,8 @@ prediction = [
     [0, 0.8952205882352942, 0.7165032679738562, 0.1409313725490196, 0.18137254901960784]]
 """
 
-REAL_COIN_HEIGHT = 15
-REAL_COIN_WIDTH = 15
+REAL_COIN_HEIGHT = 25
+REAL_COIN_WIDTH = 25
 
 
 def calcuate_dim(prediction):
@@ -14,7 +14,7 @@ def calcuate_dim(prediction):
     coin_width = 0
     coin_height = 0
     for i in range(len(prediction)):
-        if prediction[i][0] == "coin":
+        if prediction[i][0] == 0:
             coin_width = prediction[i][3]
             coin_height = prediction[i][4]
         else:
@@ -31,5 +31,3 @@ def calcuate_dim(prediction):
         obj_dim[i][2] = (obj_dim[i][2] / coin_height) * REAL_COIN_HEIGHT
 
     return obj_dim
-
-#print(calcuate_dim(prediction, (125, 125)))

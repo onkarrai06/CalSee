@@ -1,21 +1,31 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsRegressor
 import os
-from data import parse_data_knn
+from knn.prepare import parse_data_knn
 
-K = 3
+K = 9
 
-def make_model():
+def predict_weight(food, side_area, top_area):
 
     if os.path.exists("CalSee\DIPv1\knn\density_procs.csv"):
         df = pd.read_csv("CalSee\DIPv1\knn\density_procs.csv")
     else:
         df = parse_data_knn()
+    
+    #filter knn model with food
+    df = df[df['image_name'] == food]
 
-    #plot data points based on type and density in knn
-    plt.scatter(df["type"],df["volume(mm^3)"])
-    plt.xlabel("Type")
-    plt.ylabel("volume(mm^3)")
-    plt.show()
+    #make knn model with side_area and top_area as features
+    df = df[['side_area', 'top_area', 'real_calories']]
+    df = df.dropna()
+    
+    #make knn model
+    knn = KNeighborsRegressor(n_neighbors=K)
+    knn.fit(df[['side_area', 'top_area']], df['real_calories'])
 
-make_model()
+    #predict real_mass
+    predict = knn.predict([[side_area, top_area]])
+    
+    return predict[0] 
+ 
