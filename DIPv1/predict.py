@@ -2,19 +2,31 @@ from ultralytics import YOLO
 from calculate import calcuate_dim
 import cv2
 from knn.knn import predict_weight
+from PIL import Image
+import numpy as np
 
 WEIGHTS = 'DIPv1\yolo\yolov8n7\weights\\best.pt'
 
-def predict(top_pic, side_pic):
+def predict(top_img, side_img):
+    """
+    top_img = cv2.imread(top_img)
+    side_img = cv2.imread(side_img)"""
+    
+    top_img = Image.open(top_img)
+    top_img = np.array(top_img)
+
+    side_img = Image.open(side_img)
+    side_img = np.array(side_img)
+
+    top_img = cv2.resize(top_img, (416, 416))
+    side_img = cv2.resize(side_img, (416, 416))
+    
     # Load model
     model = YOLO(WEIGHTS)
     classes = model.names
 
-    top_result = model(top_pic)
-    side_result = model(side_pic)
-
-    top_img = cv2.imread(top_pic)
-    side_img = cv2.imread(side_pic)
+    top_result = model(top_img)
+    side_result = model(side_img)
 
     top_boxes = top_result[0].boxes.cpu().numpy()
     side_boxes = side_result[0].boxes.cpu().numpy()
@@ -43,7 +55,7 @@ def predict(top_pic, side_pic):
     top_dim = calcuate_dim(top_list_of_objects)
     side_dim = calcuate_dim(side_list_of_objects)
 
-    weights = []
+    results = []
     for i in range(len(top_dim)):
         
         top_area = top_dim[i][1] * top_dim[i][2]
@@ -54,12 +66,16 @@ def predict(top_pic, side_pic):
 
         calories = weight
 
-        weights.append([obj,calories])
+        results.append([obj,calories])
 
-    print(weights)
+    """
+    print(results)
     cv2.imshow('topimage',top_img)
     cv2.imshow('sideimage',side_img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+    """
 
+    return results, top_img, side_img
+    
 predict("DIPv1\\testTop.JPG","DIPv1\\testSide.JPG")
