@@ -1,3 +1,5 @@
-/DIPv1/dataset/
+/DIPv1/yolo/dataset/
 /DIPv1/ECUSTFD-resized--master/
 /DIPv1/__pycache__/
+/DIPv1/yolo/__pycache__/
+/DIPv1/knn/__pycache__/

@@ -3,9 +3,7 @@ from calculate import calcuate_dim
 import cv2
 from knn.knn import predict_weight
 
-WEIGHTS = 'CalSee\DIPv1\yolov8n7\weights\\best.pt'
-
-
+WEIGHTS = 'DIPv1\yolo\yolov8n7\weights\\best.pt'
 
 def predict(top_pic, side_pic):
     # Load model
@@ -36,6 +34,7 @@ def predict(top_pic, side_pic):
         dim = box.xywh
         x,y,w,h = dim[0][0],dim[0][1],dim[0][2],dim[0][3]
         obj = int(box.cls[0])
+        print(classes[obj])
         side_list_of_objects.append([obj,x,y,w,h])
 
         cv2.rectangle(side_img,(int(x-w/2),int(y-h/2)),(int(x+w/2),int(y+h/2)),(255,0,0),2)
@@ -57,11 +56,10 @@ def predict(top_pic, side_pic):
 
         weights.append([obj,calories])
 
-
     print(weights)
     cv2.imshow('topimage',top_img)
     cv2.imshow('sideimage',side_img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-predict("D:\Class\DIP\projecGithub\CalSee\DIPv1\dataset\images\\train\\banana008T(4).JPG","D:\Class\DIP\projecGithub\CalSee\DIPv1\dataset\images\\train\\banana008s(4).JPG")
+predict("DIPv1\\testTop.JPG","DIPv1\\testSide.JPG")

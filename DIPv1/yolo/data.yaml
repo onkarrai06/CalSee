@@ -1,0 +1,25 @@
+names:
+  0: coin
+  1: apple
+  2: banana
+  3: bread
+  4: bun
+  5: doughnut
+  6: egg
+  7: fired_dough_twist
+  8: grape
+  9: lemon
+  10: litchi
+  11: mango
+  12: orange
+  13: qiwi
+  14: tomato
+  15: pear
+  16: mooncake
+  17: peach
+  18: plum
+  19: sachima
+path: ../dataset
+test: images/test
+train: images/train
+val: images/validation
