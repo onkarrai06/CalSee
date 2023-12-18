@@ -4,7 +4,7 @@ from predict import predict
 import numpy as np
 
 def main():
-    st.title("Calorie Estimator")
+    st.markdown("# <span style='color:red;'><u>Calorie Estimator</u></span>", unsafe_allow_html=True)
 
     # Upload pictures
     col1, col2 = st.columns(2)
@@ -35,9 +35,20 @@ def process_pictures(top, side):
 
 
 def show_result(results, top_img, side_img):
-    st.title("Result Page")
-    st.write(results)
-    st.write("This is the result page. You can display any text or analysis here.")
+    total_calories = 0
+    
+    st.title("Food and Calories")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.image(top_img, caption="Top View", use_column_width=True)
+    with col2:
+        st.image(side_img, caption="Side View", use_column_width=True)
+
+    for item in results:
+        st.markdown(f"#### {item[0].capitalize()} with Calories {item[1].round(2)}")
+        total_calories += item[1]
+    st.markdown("## <span style='color:red;'><u>Total Calories: " + str(total_calories.round(2)) + "</u></span>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
