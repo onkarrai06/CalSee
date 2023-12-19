@@ -5,8 +5,8 @@ REAL_COIN_WIDTH = 25
 
 def calcuate_dim(prediction):
     obj_dim = []
-    coin_width = 0
-    coin_height = 0
+    coin_width = 1
+    coin_height = 1
     for i in range(len(prediction)):
         if prediction[i][0] == 0:
             coin_width = prediction[i][3]

@@ -48,7 +48,11 @@ def show_result(results, top_img, side_img):
     for item in results:
         st.markdown(f"#### {item[0].capitalize()} with Calories {item[1].round(2)}")
         total_calories += item[1]
-    st.markdown("## <span style='color:red;'><u>Total Calories: " + str(total_calories.round(2)) + "</u></span>", unsafe_allow_html=True)
+    
+    if total_calories != 0:
+        total_calories = total_calories.round(2)
+
+    st.markdown("## <span style='color:red;'><u>Total Calories: " + str(total_calories) + "</u></span>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()

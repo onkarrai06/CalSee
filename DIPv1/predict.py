@@ -1,22 +1,26 @@
 from ultralytics import YOLO
 from calculate import calcuate_dim
 import cv2
-from knn.knn import predict_weight
+from knn.knn import predict_calories
 from PIL import Image
 import numpy as np
 
-WEIGHTS = 'DIPv1\yolo\yolov8n7\weights\\best.pt'
+WEIGHTS = 'D:\Class\DIP\projecGithub\CalSee\DIPv1\yolo\yolov8n7\weights\last.pt'
 
 def predict(top_img, side_img):
+    
     """
     top_img = cv2.imread(top_img)
-    side_img = cv2.imread(side_img)"""
-    
+    side_img = cv2.imread(side_img)
+    """
     top_img = Image.open(top_img)
     top_img = np.array(top_img)
 
     side_img = Image.open(side_img)
     side_img = np.array(side_img)
+
+    top_img = cv2.cvtColor(top_img, cv2.COLOR_RGB2BGR)
+    side_img = cv2.cvtColor(side_img, cv2.COLOR_RGB2BGR)
 
     top_img = cv2.resize(top_img, (416, 416))
     side_img = cv2.resize(side_img, (416, 416))
@@ -60,14 +64,12 @@ def predict(top_img, side_img):
         
         top_area = top_dim[i][1] * top_dim[i][2]
         side_area = side_dim[i][1] * side_dim[i][2]
-        weight = predict_weight(top_dim[i][0], side_area, top_area)
+        calories = predict_calories(top_dim[i][0], side_area, top_area)
         
         obj = classes[top_dim[i][0]]
 
-        calories = weight
-
         results.append([obj,calories])
-
+    
     """
     print(results)
     cv2.imshow('topimage',top_img)
@@ -76,6 +78,8 @@ def predict(top_img, side_img):
     cv2.destroyAllWindows()
     """
 
+    top_img = cv2.cvtColor(top_img, cv2.COLOR_BGR2RGB)
+    side_img = cv2.cvtColor(side_img, cv2.COLOR_BGR2RGB)
     return results, top_img, side_img
     
-predict("DIPv1\\testTop.JPG","DIPv1\\testSide.JPG")
+#predict("D:\Class\DIP\projecGithub\CalSee\DIPv1\\testimages\\test_image.JPG","D:\Class\DIP\projecGithub\CalSee\DIPv1\\testimages\\1bananasT.jpeg")
