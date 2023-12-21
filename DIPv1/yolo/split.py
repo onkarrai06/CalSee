@@ -1,6 +1,8 @@
 import os
 import random
 import shutil
+import cv2
+from preprocessing import preprocess_image
 
 TRAIN = 0.8
 TEST = 0.2
@@ -87,31 +89,35 @@ def train_test_split():
     coins_validation_images = coins_validation_images[len(coins_validation_images) // 2:]
 
     for image in coins_validation_images:
-        shutil.move(
-            ".\DIPv1\coin\\valid\images\\" + image,
-            ".\DIPv1\yolo\dataset\images\\validation\\" + image,
-        )
-        shutil.move(
+
+        image = cv2.imread(".\DIPv1\coin\\valid\images\\" + image)
+        image = preprocess_image(image)
+        
+        cv2.imwrite(".\DIPv1\yolo\dataset\images\\validation\\" + image, image)
+
+        shutil.copy(
             ".\DIPv1\coin\\valid\labels\\" + image[:-4] + ".txt",
             ".\DIPv1\yolo\dataset\labels\\validation\\" + image[:-4] + ".txt",
         )
     
     for image in coins_test_images:
-        shutil.move(
-            ".\DIPv1\coin\\valid\images\\" + image,
-            ".\DIPv1\yolo\dataset\images\\test\\" + image,
-        )
-        shutil.move(
+        
+        image = cv2.imread(".\DIPv1\coin\\valid\images\\" + image)
+        image = preprocess_image(image)
+        cv2.imwrite(".\DIPv1\yolo\dataset\images\\test\\" + image, image)
+        
+        shutil.copy(
             ".\DIPv1\coin\\valid\labels\\" + image[:-4] + ".txt",
             ".\DIPv1\yolo\dataset\labels\\test\\" + image[:-4] + ".txt",
         )
     
     for image in coins_train_images:
-        shutil.move(
-            ".\DIPv1\coin\\train\images\\" + image,
-            ".\DIPv1\yolo\dataset\images\\train\\" + image,
-        )
-        shutil.move(
+        
+        image = cv2.imread(".\DIPv1\coin\\train\images\\" + image)
+        image = preprocess_image(image)
+        cv2.imwrite(".\DIPv1\yolo\dataset\images\\train\\" + image, image)
+
+        shutil.copy(
             ".\DIPv1\coin\\train\labels\\" + image[:-4] + ".txt",
             ".\DIPv1\yolo\dataset\labels\\train\\" + image[:-4] + ".txt",
         )

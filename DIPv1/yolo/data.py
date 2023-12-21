@@ -4,6 +4,7 @@ import numpy as np
 import cv2
 from split import train_test_split
 from create_yaml import yaml_create
+from preprocessing import preprocess_image
 
 path = ".\DIPv1\ECUSTFD-resized--master"
 
@@ -51,15 +52,9 @@ for elem in os.listdir(path + "\Annotations"):
     #getting image dimensions
     height, width, band = image.shape
 
-    #TODO APPLY PROCESSING TECHNIQUES
-
-    #resizing image
-    image = cv2.resize(image, (416, 416))
-
-    #normalizing image
-    #image = np.array(image,dtype=np.float32)
-    #image = helper.normalize_image(image)
-
+    #prepocessing image
+    image = preprocess_image(image)
+    
     #saving image
     cv2.imwrite(new_path + "\images\\" + filename, image)
     

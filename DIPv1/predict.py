@@ -1,9 +1,10 @@
 from ultralytics import YOLO
 from calculate import calcuate_dim
 import cv2
-from knn.knn import predict_calories
 from PIL import Image
 import numpy as np
+from knn.knn import predict_calories
+from yolo.preprocessing import preprocess_image
 
 WEIGHTS = 'D:\Class\DIP\projecGithub\CalSee\DIPv1\yolo\yolov8n7\weights\last.pt'
 
@@ -22,8 +23,8 @@ def predict(top_img, side_img):
     top_img = cv2.cvtColor(top_img, cv2.COLOR_RGB2BGR)
     side_img = cv2.cvtColor(side_img, cv2.COLOR_RGB2BGR)
 
-    top_img = cv2.resize(top_img, (416, 416))
-    side_img = cv2.resize(side_img, (416, 416))
+    top_img = preprocess_image(top_img)
+    side_img = preprocess_image(side_img)
     
     # Load model
     model = YOLO(WEIGHTS)
