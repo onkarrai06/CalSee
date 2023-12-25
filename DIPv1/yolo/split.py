@@ -122,3 +122,5 @@ def train_test_split():
             ".\DIPv1\yolo\dataset\labels\\train\\" + path[:-4] + ".txt",
         )
     
+
+train_test_split()

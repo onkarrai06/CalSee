@@ -19,7 +19,7 @@ names:
   17: peach
   18: plum
   19: sachima
-path: ../dataset
+path: ../datasets/dataset
 test: images/test
 train: images/train
 val: images/validation
