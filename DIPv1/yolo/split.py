@@ -88,37 +88,37 @@ def train_test_split():
     coins_test_images = coins_validation_images[:len(coins_validation_images) // 2]
     coins_validation_images = coins_validation_images[len(coins_validation_images) // 2:]
 
-    for image in coins_validation_images:
+    for path in coins_validation_images:
 
-        image = cv2.imread(".\DIPv1\coin\\valid\images\\" + image)
+        image = cv2.imread(".\DIPv1\coin\\valid\images\\" + path)
         image = preprocess_image(image)
         
-        cv2.imwrite(".\DIPv1\yolo\dataset\images\\validation\\" + image, image)
+        cv2.imwrite(".\DIPv1\yolo\dataset\images\\validation\\" + path, image)
 
         shutil.copy(
-            ".\DIPv1\coin\\valid\labels\\" + image[:-4] + ".txt",
-            ".\DIPv1\yolo\dataset\labels\\validation\\" + image[:-4] + ".txt",
+            ".\DIPv1\coin\\valid\labels\\" + path[:-4] + ".txt",
+            ".\DIPv1\yolo\dataset\labels\\validation\\" + path[:-4] + ".txt",
         )
     
-    for image in coins_test_images:
+    for path in coins_test_images:
         
-        image = cv2.imread(".\DIPv1\coin\\valid\images\\" + image)
+        image = cv2.imread(".\DIPv1\coin\\valid\images\\" + path)
         image = preprocess_image(image)
-        cv2.imwrite(".\DIPv1\yolo\dataset\images\\test\\" + image, image)
+        cv2.imwrite(".\DIPv1\yolo\dataset\images\\test\\" + path, image)
         
         shutil.copy(
-            ".\DIPv1\coin\\valid\labels\\" + image[:-4] + ".txt",
-            ".\DIPv1\yolo\dataset\labels\\test\\" + image[:-4] + ".txt",
+            ".\DIPv1\coin\\valid\labels\\" + path[:-4] + ".txt",
+            ".\DIPv1\yolo\dataset\labels\\test\\" + path[:-4] + ".txt",
         )
     
-    for image in coins_train_images:
+    for path in coins_train_images:
         
-        image = cv2.imread(".\DIPv1\coin\\train\images\\" + image)
+        image = cv2.imread(".\DIPv1\coin\\train\images\\" + path)
         image = preprocess_image(image)
-        cv2.imwrite(".\DIPv1\yolo\dataset\images\\train\\" + image, image)
+        cv2.imwrite(".\DIPv1\yolo\dataset\images\\train\\" + path, image)
 
         shutil.copy(
-            ".\DIPv1\coin\\train\labels\\" + image[:-4] + ".txt",
-            ".\DIPv1\yolo\dataset\labels\\train\\" + image[:-4] + ".txt",
+            ".\DIPv1\coin\\train\labels\\" + path[:-4] + ".txt",
+            ".\DIPv1\yolo\dataset\labels\\train\\" + path[:-4] + ".txt",
         )
     
